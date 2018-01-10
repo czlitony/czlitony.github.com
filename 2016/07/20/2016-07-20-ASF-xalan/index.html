@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>用xalan解析xml文件 | CzliTony&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="XSLT 是一种基于规则的格式转换语言。在许多人眼里,它的功能就是将一种格式的 xml 文件转换成另外一种格式的 xml 或 html 文件，仅此而已。不过，事实真是这样吗？">
+<meta name="keywords" content="xml,xalan,xsl,xslt,xpath">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用xalan解析xml文件">
+<meta property="og:url" content="http://czlitony.github.io/2016/07/20/2016-07-20-ASF-xalan/index.html">
+<meta property="og:site_name" content="CzliTony&#39;s Blog">
+<meta property="og:description" content="XSLT 是一种基于规则的格式转换语言。在许多人眼里,它的功能就是将一种格式的 xml 文件转换成另外一种格式的 xml 或 html 文件，仅此而已。不过，事实真是这样吗？">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-07-10T07:53:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用xalan解析xml文件">
+<meta name="twitter:description" content="XSLT 是一种基于规则的格式转换语言。在许多人眼里,它的功能就是将一种格式的 xml 文件转换成另外一种格式的 xml 或 html 文件，仅此而已。不过，事实真是这样吗？">
+  
+    <link rel="alternate" href="/atom.xml" title="CzliTony&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">CzliTony&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Nothing is impossible.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://czlitony.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2016-07-20-ASF-xalan" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/20/2016-07-20-ASF-xalan/" class="article-date">
+  <time datetime="2016-07-20T01:38:30.000Z" itemprop="datePublished">2016-07-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/xslt/">xslt</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      用xalan解析xml文件
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>XSLT 是一种基于规则的格式转换语言。在许多人眼里,它的功能就是将一种格式的 xml 文件转换成另外一种格式的 xml 或 html 文件，仅此而已。不过，事实真是这样吗？</p>
+<a id="more"></a>
+<p>其实 XSLT 能够做的事情很多，绝对超乎你的想象。除了格式转换，XSLT 还能完成一些看起来和格式转换完全无关的工作。比如说文件访问或者是数据库查询等等。而这一切都要归功于 XSLT 扩展（XSLT Extension）。<br>根据 XSLT 1.0 的规范，符合标准的 XSLT 引擎应该支持 XSLT 扩展。也就是允许用户自定义 XSLT 的扩展元素（extension elements）和函数(extension functions)。今天我们所看到的主流 XSLT 引擎都按照国际标准，提供了自己的扩展方式。而开源软件中的 saxaon 和 xalan，在这方面走得更远。<br>Saxon 和 xalan 都是基于 java 开发的 XSLT 引擎，为它们编写扩展自然也基于 java。一般只要以下 3 步就可以完成一个扩展了。</p>
+<ol>
+<li>编写一个 java 类，在这个类里面设计好扩展功能，并以<strong>静态方法</strong>的形式提供给XSLT 引擎调用。</li>
+<li>在 XSLT 文件中，声明一个自定义的命名空间（namespace）,该命名空间指出了类的位置</li>
+<li>在 XSLT 文件中，在适当的地方，调用扩展即可。</li>
+</ol>
+<p>本文主要运用的是xalan, xalan是ASF的项目，可以访问其官网进行了解：<a href="https://xalan.apache.org/" target="_blank" rel="noopener">https://xalan.apache.org</a><br>关于xalan的使用这个网站可以参考一下（这个网站上面的例子试了不成功）：<a href="http://terpconnect.umd.edu/~zhangx/xml/html/xmlprog/xalan/javaext.html" target="_blank" rel="noopener">http://terpconnect.umd.edu/~zhangx/xml/html/xmlprog/xalan/javaext.html</a></p>
+<h2 id="一-xalan-包"><a href="#一-xalan-包" class="headerlink" title="一. xalan 包"></a>一. xalan 包</h2><p>xalan有两种版本，分别是基于C++和Java来实现， 本文采用Java版本，有关xalan包的信息可以去官网进行查阅，找到对应的版本进行下载。本文使用的包是 <a href="http://www-us.apache.org/dist/xalan/xalan-j/binaries/" target="_blank" rel="noopener">Xalan-Java 2.7.2二进制包</a>.<br>将包下载之后，需要安装java相关的依赖。</p>
+<h2 id="二-解析xml"><a href="#二-解析xml" class="headerlink" title="二. 解析xml"></a>二. 解析xml</h2><p>新建一个java文件SimpleTransform.java,添加如下内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">//import needed xalan packages</div><div class="line">import javax.xml.transform.TransformerFactory;</div><div class="line">import javax.xml.transform.Transformer;</div><div class="line">import javax.xml.transform.stream.StreamSource;</div><div class="line">import javax.xml.transform.stream.StreamResult;</div><div class="line">import javax.xml.transform.TransformerException;</div><div class="line">import javax.xml.transform.TransformerConfigurationException;</div><div class="line"></div><div class="line">//import needed java packages</div><div class="line">import java.io.FileOutputStream;</div><div class="line">import java.io.FileNotFoundException;</div><div class="line">import java.io.IOException;</div><div class="line"></div><div class="line">public class SimpleTransform</div><div class="line">&#123;</div><div class="line">    public static void main(String[] args)</div><div class="line">    throws TransformerException, TransformerConfigurationException, </div><div class="line">           FileNotFoundException, IOException</div><div class="line">    &#123;  </div><div class="line">        //create a transformer factory class.</div><div class="line">        TransformerFactory tFactory = TransformerFactory.newInstance();</div><div class="line"></div><div class="line">        //create an instance using the factory class</div><div class="line">        Transformer transformer = tFactory.newTransformer(new StreamSource(&quot;phonehometranslator.xsl&quot;));</div><div class="line"></div><div class="line">        //call function transform from class transformer to complete conversion</div><div class="line">        transformer.transform(new StreamSource(&quot;amc_one_of_everything.xml&quot;), new StreamResult(new FileOutputStream(&quot;out.xml&quot;)));</div><div class="line"></div><div class="line">        //print the message telling user that the conversion is done. </div><div class="line">        System.out.println(&quot;************* The result is in out.xml*************&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个文件的作用是将 amc_one_of_everything.xml 根据 phonehometranslator.xsl 解析成 out.xml .<br>如果解析成功的话会在console上输出: ”The result is in out.xml“;<br>如果出错的话会给出错误提示信息，错误提示信息相对python上面的lxml解析器还是更友好些的。<br>接着就是编译这个文件（之前下载的xalan包要放在SimpleTransform.java同一路径下，这样方便调用）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">javac SimpleTransform.java</div></pre></td></tr></table></figure></p>
+<p>编译成功会生成SimpleTransform.class, 接下来就可以进行转换啦～～运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java SimpleTransform</div></pre></td></tr></table></figure></p>
+<p>不出意外的话就可以看到转换后的结果了，当然前提是所写的xsl文件没有问题～</p>
+<h2 id="三-在xsl中调用自定义的java函数"><a href="#三-在xsl中调用自定义的java函数" class="headerlink" title="三. 在xsl中调用自定义的java函数"></a>三. 在xsl中调用自定义的java函数</h2><p>想要调用java函数，就像本文开头说的那样，总共分三步。</p>
+<h3 id="1-编写java类"><a href="#1-编写java类" class="headerlink" title="1.编写java类"></a>1.编写java类</h3><p>新建文件extFunc.java,向其中加入以下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">import java.util.ArrayList;</div><div class="line">import java.util.Iterator;</div><div class="line">import java.util.Collections;</div><div class="line">import java.util.List;</div><div class="line"></div><div class="line">public class extFunc&#123;</div><div class="line">    private static ArrayList&lt;Integer&gt; valueList = new ArrayList&lt;Integer&gt;();</div><div class="line"></div><div class="line">    //reset sum and valueList</div><div class="line">    public static int reset() &#123;</div><div class="line">        valueList.clear();</div><div class="line">        return 1;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static int calc() &#123;</div><div class="line">        if(valueList.size() &gt; 0) &#123;</div><div class="line">            Collections.sort(valueList);</div><div class="line">            return 1;</div><div class="line">        &#125; else &#123;</div><div class="line">            return 0;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static int insert(int val) &#123;</div><div class="line">        valueList.add(val);</div><div class="line"></div><div class="line">        return 1;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static int getMax() &#123;</div><div class="line">        return valueList.get(valueList.size()-1);</div><div class="line">    &#125;</div><div class="line">	</div><div class="line">    public static int getMin() &#123;</div><div class="line">        return valueList.get(0);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static int getMedium() &#123;</div><div class="line">        return valueList.get(valueList.size()/2);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>注意其中的静态方法就是给后面的xsl文件调用的。这个文件中函数的简单介绍为：<br>xsl文件调用insert函数插入数值到ArrayList中，然后getMax,getMin,getMedium分别是获取ArrayList中所有数值的最大值、最小值、和中位数。calc主要就是将ArrayList排序，方便取得最大值、最小值和中位数。<br>reset就不用解释了～<br>然后同样编译这个文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">javac extFunc.java</div></pre></td></tr></table></figure></p>
+<h3 id="2-xsl命名空间"><a href="#2-xsl命名空间" class="headerlink" title="2.xsl命名空间"></a>2.xsl命名空间</h3><p>想要调用extFunc类中的文件，需要在xsl文件中将其引用进来，具体看下面的代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; </div><div class="line">    xmlns:myext=&quot;extFunc&quot;</div><div class="line">    exclude-result-prefixes=&quot;myext&quot;&gt;</div><div class="line"></div><div class="line">    .</div><div class="line">    .</div><div class="line">    .</div><div class="line"></div><div class="line">&lt;/xsl:stylesheet&gt;</div></pre></td></tr></table></figure></p>
+<p>xmlns:myext=”extFunc”就是将类引入，exclude-result-prefixes=”myext”声明调用的前缀。</p>
+<h3 id="3-调用"><a href="#3-调用" class="headerlink" title="3.调用"></a>3.调用</h3><p>下面编写一个例子来调用extFunc类中的函数。<br>在phonehometranslator.xsl文件中写入如下内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; </div><div class="line">    xmlns:myext=&quot;extFunc&quot;</div><div class="line">    exclude-result-prefixes=&quot;myext&quot;&gt;</div><div class="line"></div><div class="line">    &lt;xsl:if test=&quot;myext:insert(1)&quot; /&gt;</div><div class="line">    &lt;xsl:if test=&quot;myext:insert(2)&quot; /&gt;</div><div class="line">    &lt;xsl:if test=&quot;myext:insert(3)&quot; /&gt;</div><div class="line">    &lt;xsl:if test=&quot;myext:insert(4)&quot; /&gt;</div><div class="line">    </div><div class="line">    &lt;xsl:if test=&quot;myext:calc()&quot; /&gt;</div><div class="line">    </div><div class="line">    &lt;test&gt;</div><div class="line">        &lt;max&gt;</div><div class="line">            &lt;xsl:attribute name=&quot;value&quot;&gt;</div><div class="line">                &lt;xsl:value-of select=&quot;myext:getMax()&quot; /&gt;</div><div class="line">            &lt;/xsl:attribute&gt;</div><div class="line">        &lt;/max&gt;</div><div class="line">        &lt;min&gt;</div><div class="line">            &lt;xsl:attribute name=&quot;value&quot;&gt;</div><div class="line">                &lt;xsl:value-of select=&quot;myext:getMin()&quot; /&gt;</div><div class="line">            &lt;/xsl:attribute&gt;</div><div class="line">        &lt;/min&gt;</div><div class="line">        &lt;medium&gt;</div><div class="line">            &lt;xsl:attribute name=&quot;value&quot;&gt;</div><div class="line">                &lt;xsl:value-of select=&quot;myext:getMedium()&quot; /&gt;</div><div class="line">            &lt;/xsl:attribute&gt;</div><div class="line">        &lt;/medium&gt;</div><div class="line">    &lt;/test&gt;</div><div class="line"></div><div class="line">&lt;/xsl:stylesheet&gt;</div></pre></td></tr></table></figure></p>
+<p>这段代码如果没有问题的话，执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java SimpleTransform</div></pre></td></tr></table></figure></p>
+<p>如果没有错误的话，理应得到的xml文件内容为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;test&gt;</div><div class="line">&lt;max value=&quot;4&quot;/&gt;</div><div class="line">&lt;min value=&quot;1&quot;/&gt;</div><div class="line">&lt;medium count=&quot;2&quot;&gt;</div><div class="line">&lt;/test&gt;</div></pre></td></tr></table></figure></p>
+<p>xalan调用java函数的功能还是很强大的，更多的内容请自行探索～～</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://czlitony.github.io/2016/07/20/2016-07-20-ASF-xalan/" data-id="cjc8c0xzu000hx4ufl6630mmi" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xalan/">xalan</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xml/">xml</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xpath/">xpath</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xsl/">xsl</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xslt/">xslt</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/07/21/2016-07-21-xslt-java-function/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          xslt调用java类方法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/07/12/2016-07-12-vmvare-vsphere-share-plate/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">Vmware vSphere虚拟机与主机共享剪贴板</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Catégories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/">other</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/tools/">tools</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vim/">vim</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xslt/">xslt</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-11/">C++11</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDBC，-MySql/">JDBC， MySql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL/">SSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VPN/">VPN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vmware/">Vmware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XML，-DOM/">XML， DOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/delegating-constructors/">delegating constructors</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/digital-certificate/">digital certificate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/digital-signature/">digital signature</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/samba/">samba</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shared-ptr/">shared_ptr</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svn-commands/">svn commands</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/visual-stdio-code/">visual stdio code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vsc/">vsc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xalan/">xalan</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xml/">xml</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xpath/">xpath</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xsl/">xsl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xslt/">xslt</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/C-11/" style="font-size: 20px;">C++11</a> <a href="/tags/JDBC，-MySql/" style="font-size: 10px;">JDBC， MySql</a> <a href="/tags/SSL/" style="font-size: 10px;">SSL</a> <a href="/tags/VPN/" style="font-size: 10px;">VPN</a> <a href="/tags/Vmware/" style="font-size: 10px;">Vmware</a> <a href="/tags/XML，-DOM/" style="font-size: 10px;">XML， DOM</a> <a href="/tags/delegating-constructors/" style="font-size: 10px;">delegating constructors</a> <a href="/tags/digital-certificate/" style="font-size: 10px;">digital certificate</a> <a href="/tags/digital-signature/" style="font-size: 10px;">digital signature</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/samba/" style="font-size: 20px;">samba</a> <a href="/tags/shared-ptr/" style="font-size: 10px;">shared_ptr</a> <a href="/tags/svn-commands/" style="font-size: 10px;">svn commands</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/visual-stdio-code/" style="font-size: 10px;">visual stdio code</a> <a href="/tags/vsc/" style="font-size: 10px;">vsc</a> <a href="/tags/xalan/" style="font-size: 10px;">xalan</a> <a href="/tags/xml/" style="font-size: 20px;">xml</a> <a href="/tags/xpath/" style="font-size: 20px;">xpath</a> <a href="/tags/xsl/" style="font-size: 20px;">xsl</a> <a href="/tags/xslt/" style="font-size: 20px;">xslt</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/09/16/2017-09-16-C++-Notes/">C++ Notess</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/10/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/10/2016-07-16-Notes/">Notes</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/07/2017-02-07-svn-commands/">SVN常用命令</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/06/2017-02-06-delegating-constructors/">C++构造函数调用构造函数问题</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Tony Li<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

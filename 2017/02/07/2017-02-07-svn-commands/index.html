@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>SVN常用命令 | CzliTony&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="介绍一些常用的svn命令。">
+<meta name="keywords" content="svn commands">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SVN常用命令">
+<meta property="og:url" content="http://czlitony.github.io/2017/02/07/2017-02-07-svn-commands/index.html">
+<meta property="og:site_name" content="CzliTony&#39;s Blog">
+<meta property="og:description" content="介绍一些常用的svn命令。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-07-10T07:53:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SVN常用命令">
+<meta name="twitter:description" content="介绍一些常用的svn命令。">
+  
+    <link rel="alternate" href="/atom.xml" title="CzliTony&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">CzliTony&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Nothing is impossible.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://czlitony.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2017-02-07-svn-commands" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/02/07/2017-02-07-svn-commands/" class="article-date">
+  <time datetime="2017-02-07T09:02:30.000Z" itemprop="datePublished">2017-02-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/SVN/">SVN</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SVN常用命令
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>介绍一些常用的svn命令。</p>
+<a id="more"></a>
+<h1 id="查看修改的文件记录"><a href="#查看修改的文件记录" class="headerlink" title="查看修改的文件记录"></a>查看修改的文件记录</h1><p>svn cat – 显示特定版本的某文件内容。<br>svn list – 显示一个目录或某一版本存在的文件列表。<br>svn log – 显示svn 的版本log，含作者、日期、路径等。<br>svn diff – 显示特定修改的行级详细信息。</p>
+<p><strong>list示例：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">svn list http://svn.test.com/svn     #查看目录中的文件。</div><div class="line">svn list -v http://svn.test.com/svn  #查看详细的目录的信息(修订人,版本号,文件大小等)。</div><div class="line">svn list [-v]                        #查看当前当前工作拷贝的版本库URL。</div></pre></td></tr></table></figure></p>
+<p><strong>cat示例：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">svn cat -r 4 test.c     #查看版本4中的文件test.c的内容,不进行比较。</div></pre></td></tr></table></figure></p>
+<p><strong>diff示例：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">svn diff               #什么都不加，会坚持本地代码和缓存在本地.svn目录下的信息的不同;信息太多，没啥用处。</div><div class="line">svn diff -r 3          #比较你的本地代码和版本号为3的所有文件的不同。</div><div class="line">svn diff -r 3 text.c   #比较你的本地代码和版本号为3的text.c文件的不同。</div><div class="line">svn diff -r 5:6        #比较版本5和版本6之间所有文件的不同。</div><div class="line">svn diff -r 5:6 text.c #比较版本5和版本6之间的text.c文件的变化。</div><div class="line">svn diff -c 6 test.c    #比较版本5和版本6之间的text.c文件的变化。</div><div class="line">svn diff file --diff-cmd=meld  # 用meld工具查看变化。</div></pre></td></tr></table></figure></p>
+<p><strong>log示例</strong>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">svn log         #什么都不加会显示所有版本commit的日志信息:版本、作者、日期、comment。</div><div class="line">svn log -r 4:20 #只看版本4到版本20的日志信息，顺序显示。</div><div class="line">svn log -r 20:5 #显示版本20到4之间的日志信息，逆序显示。</div><div class="line">svn log test.c  #查看文件test.c的日志修改信息。</div><div class="line">svn log -r 8 -v #显示版本8的详细修改日志，包括修改的所有文件列表信息。</div><div class="line">svn log -r 8 -v -q   #显示版本8的详细提交日志，不包括comment。</div><div class="line">svn log -v -r 88:866 #显示从版本88到版本866之间，当前代码目录下所有变更的详细信息 。</div><div class="line">svn log -v dir  #查看目录的日志修改信息,需要加v。</div><div class="line">svn log http://foo.com/svn/trunk/code/  #显示代码目录的日志信息。</div></pre></td></tr></table></figure></p>
+<h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><p>svn add file|dir – 添加文件或整个目录<br>svn checkout – 获取svn代码<br>svn commit  – 提交本地修改代码<br>svn status    – 查看本地修改代码情况：修改的或本地独有的文件详细信息(svn st -q)<br>svn merge   – 合并svn和本地代码<br>svn revert   – 撤销本地修改代码<br>svn resolve – 合并冲突代码<br>svn help [command] – 查看svn帮助，或特定命令帮助</p>
+<h1 id="svn-diff个性化定制"><a href="#svn-diff个性化定制" class="headerlink" title="svn diff个性化定制"></a>svn diff个性化定制</h1><p>meld是一个GUI的文本比较工具，比SVN自带的diff工具要好用很多。如何使用meld来替代SVN自带的diff呢？方法如下： </p>
+<ol>
+<li><p>安装好meld</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install Caskroom/cask/meld</div></pre></td></tr></table></figure>
+</li>
+<li><p>编辑~/.subversion目录下的config文件，将meld赋值给diff-cmd，如下所示： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">###   Set diff-cmd to the absolute path of your &apos;diff&apos; program. </div><div class="line">###   This will override the compile-time default, which is to use </div><div class="line">###   Subversion&apos;s internal diffimplementation. </div><div class="line">diff-cmd = meld</div></pre></td></tr></table></figure>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://czlitony.github.io/2017/02/07/2017-02-07-svn-commands/" data-id="cjc8c0y0f0013x4ufcc230cwl" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/svn-commands/">svn commands</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/07/10/2016-07-16-Notes/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          Notes
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/02/06/2017-02-06-delegating-constructors/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">C++构造函数调用构造函数问题</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Catégories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/">other</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/tools/">tools</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vim/">vim</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xslt/">xslt</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-11/">C++11</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDBC，-MySql/">JDBC， MySql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL/">SSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VPN/">VPN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vmware/">Vmware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XML，-DOM/">XML， DOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/delegating-constructors/">delegating constructors</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/digital-certificate/">digital certificate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/digital-signature/">digital signature</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/samba/">samba</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shared-ptr/">shared_ptr</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svn-commands/">svn commands</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/visual-stdio-code/">visual stdio code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vsc/">vsc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xalan/">xalan</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xml/">xml</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xpath/">xpath</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xsl/">xsl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xslt/">xslt</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/C-11/" style="font-size: 20px;">C++11</a> <a href="/tags/JDBC，-MySql/" style="font-size: 10px;">JDBC， MySql</a> <a href="/tags/SSL/" style="font-size: 10px;">SSL</a> <a href="/tags/VPN/" style="font-size: 10px;">VPN</a> <a href="/tags/Vmware/" style="font-size: 10px;">Vmware</a> <a href="/tags/XML，-DOM/" style="font-size: 10px;">XML， DOM</a> <a href="/tags/delegating-constructors/" style="font-size: 10px;">delegating constructors</a> <a href="/tags/digital-certificate/" style="font-size: 10px;">digital certificate</a> <a href="/tags/digital-signature/" style="font-size: 10px;">digital signature</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/samba/" style="font-size: 20px;">samba</a> <a href="/tags/shared-ptr/" style="font-size: 10px;">shared_ptr</a> <a href="/tags/svn-commands/" style="font-size: 10px;">svn commands</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/visual-stdio-code/" style="font-size: 10px;">visual stdio code</a> <a href="/tags/vsc/" style="font-size: 10px;">vsc</a> <a href="/tags/xalan/" style="font-size: 10px;">xalan</a> <a href="/tags/xml/" style="font-size: 20px;">xml</a> <a href="/tags/xpath/" style="font-size: 20px;">xpath</a> <a href="/tags/xsl/" style="font-size: 20px;">xsl</a> <a href="/tags/xslt/" style="font-size: 20px;">xslt</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/09/16/2017-09-16-C++-Notes/">C++ Notess</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/10/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/10/2016-07-16-Notes/">Notes</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/07/2017-02-07-svn-commands/">SVN常用命令</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/06/2017-02-06-delegating-constructors/">C++构造函数调用构造函数问题</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Tony Li<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
