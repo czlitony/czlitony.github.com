@@ -86,7 +86,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="scons," />
 
 
 
@@ -102,13 +102,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="CzliTony&#39;s Blog">
-<meta property="og:url" content="http://czlitony.github.io/archives/2017/index.html">
+<meta name="description" content="Breifly introduce SCONS.">
+<meta name="keywords" content="scons">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SCONS Introduction">
+<meta property="og:url" content="http://czlitony.github.io/2018/02/27/2018-02-27-scons-introduction/index.html">
 <meta property="og:site_name" content="CzliTony&#39;s Blog">
+<meta property="og:description" content="Breifly introduce SCONS.">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-28T01:07:21.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CzliTony&#39;s Blog">
+<meta name="twitter:title" content="SCONS Introduction">
+<meta name="twitter:description" content="Breifly introduce SCONS.">
 
 
 
@@ -129,9 +134,9 @@
 
 
 
-  <link rel="canonical" href="http://czlitony.github.io/archives/2017/"/>
+  <link rel="canonical" href="http://czlitony.github.io/2018/02/27/2018-02-27-scons-introduction/"/>
 
-  <title> 归档 | CzliTony's Blog </title>
+  <title> SCONS Introduction | CzliTony's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -152,7 +157,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  page-archive  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -263,251 +268,204 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 20 篇日志。 继续努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
 
-      
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                SCONS Introduction
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-02-27T08:47:00+08:00" content="2018-02-27">
+              2018-02-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/scons/" itemprop="url" rel="index">
+                    <span itemprop="name">scons</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/02/27/2018-02-27-scons-introduction/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/02/27/2018-02-27-scons-introduction/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+            <span>&nbsp; | &nbsp;
+            <span id="busuanzi_value_page_pv" ></span>次阅读
+            </span>    
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
       
 
       
+        <p>Breifly introduce SCONS.</p>
+<a id="more"></a>
+<h1 id="SConstruct"><a href="#SConstruct" class="headerlink" title="SConstruct"></a>SConstruct</h1><p>SConstruct file is a python script. The SConstruct file is the input file that SCons reads to control the build.<br>Example:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── SConstruct</div><div class="line">└── hello.cpp</div></pre></td></tr></table></figure></p>
+<p>hello.cpp:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#include &lt;iostream&gt;</div><div class="line">using namespace std;</div><div class="line"></div><div class="line">int main() &#123;</div><div class="line">    cout &lt;&lt; &quot;Hello World!&quot; &lt;&lt; endl;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>SConstruct:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Program(&apos;hello.cpp&apos;)</div></pre></td></tr></table></figure></p>
+<p>Now we can build the program.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">➜  /Users/chengzhI/scons/SConstruct &gt; scons</div><div class="line">scons: Reading SConscript files ...</div><div class="line">scons: done reading SConscript files.</div><div class="line">scons: Building targets ...</div><div class="line">g++ -o hello.o -c hello.cpp</div><div class="line">g++ -o hello hello.o</div><div class="line">scons: done building targets.</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechatpublic.jpg" alt="Tony Li wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/Wechatpay.jpg" alt="Tony Li WeChat Pay"/>
+          <p>微信打赏</p>
         </div>
       
       
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/Alipay.jpg" alt="Tony Li Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
 
       
+    </div>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/scons/" rel="tag">#scons</a>
+          
+        </div>
+      
 
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/09/16/2017-09-16-C++-Notes/" itemprop="url">
-              
-                <span itemprop="name">C++ Notess</span>
-              
-            </a>
-        
-      </h1>
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/16/2017-09-16-C++-Notes/" rel="next" title="C++ Notess">
+                <i class="fa fa-chevron-left"></i> C++ Notess
+              </a>
+            
+          </div>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-16T10:11:30+08:00"
-              content="2017-09-16" >
-          09-16
-        </time>
-      </div>
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
 
-    </header>
+      
+      
+    </footer>
   </article>
 
 
 
-    
-
+    <div class="post-spread">
       
+        <div class="ds-share flat" data-thread-key="2018/02/27/2018-02-27-scons-introduction/"
+     data-title="SCONS Introduction"
+     data-content=""
+     data-url="http://czlitony.github.io/2018/02/27/2018-02-27-scons-introduction/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
       
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/07/10/hello-world/" itemprop="url">
-              
-                <span itemprop="name">Hello World</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-10T15:53:06+08:00"
-              content="2017-07-10" >
-          07-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/07/10/2016-07-16-Notes/" itemprop="url">
-              
-                <span itemprop="name">Notes</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-10T15:53:06+08:00"
-              content="2017-07-10" >
-          07-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/02/07/2017-02-07-svn-commands/" itemprop="url">
-              
-                <span itemprop="name">SVN常用命令</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-02-07T17:02:30+08:00"
-              content="2017-02-07" >
-          02-07
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/02/06/2017-02-06-delegating-constructors/" itemprop="url">
-              
-                <span itemprop="name">C++构造函数调用构造函数问题</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-02-06T17:53:30+08:00"
-              content="2017-02-06" >
-          02-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/01/01/2017-01-01-shared_ptr-traps/" itemprop="url">
-              
-                <span itemprop="name">shared_ptr陷阱</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-01-01T14:02:30+08:00"
-              content="2017-01-01" >
-          01-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
-
-  
-
+    </div>
+  </div>
 
 
           </div>
@@ -515,6 +473,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2018/02/27/2018-02-27-scons-introduction/"
+           data-title="SCONS Introduction" data-url="http://czlitony.github.io/2018/02/27/2018-02-27-scons-introduction/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -534,8 +500,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://oacbieak2.bkt.clouddn.com/Tony2.jpg"
@@ -596,6 +571,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SConstruct"><span class="nav-number">1.</span> <span class="nav-text">SConstruct</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -704,11 +690,9 @@
 
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
 
 
   

@@ -4,6 +4,32 @@
   
     
     <entry>
+      <title><![CDATA[SCONS Introduction]]></title>
+      <url>http://czlitony.github.io/2018/02/27/2018-02-27-scons-introduction/</url>
+      <content type="html"><![CDATA[<p>Breifly introduce SCONS.</p>
+<a id="more"></a>
+<h1 id="SConstruct"><a href="#SConstruct" class="headerlink" title="SConstruct"></a>SConstruct</h1><p>SConstruct file is a python script. The SConstruct file is the input file that SCons reads to control the build.<br>Example:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── SConstruct</div><div class="line">└── hello.cpp</div></pre></td></tr></table></figure></p>
+<p>hello.cpp:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#include &lt;iostream&gt;</div><div class="line">using namespace std;</div><div class="line"></div><div class="line">int main() &#123;</div><div class="line">    cout &lt;&lt; &quot;Hello World!&quot; &lt;&lt; endl;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>SConstruct:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Program(&apos;hello.cpp&apos;)</div></pre></td></tr></table></figure></p>
+<p>Now we can build the program.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">➜  /Users/chengzhI/scons/SConstruct &gt; scons</div><div class="line">scons: Reading SConscript files ...</div><div class="line">scons: done reading SConscript files.</div><div class="line">scons: Building targets ...</div><div class="line">g++ -o hello.o -c hello.cpp</div><div class="line">g++ -o hello hello.o</div><div class="line">scons: done building targets.</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> scons </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> scons </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[C++ Notess]]></title>
       <url>http://czlitony.github.io/2017/09/16/2017-09-16-C++-Notes/</url>
       <content type="html"><![CDATA[<p>记录C++的一些零碎的知识点。</p>
