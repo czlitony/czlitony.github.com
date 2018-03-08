@@ -222,9 +222,9 @@
         
         <tags>
             
-            <tag> delegating constructors </tag>
-            
             <tag> C++11 </tag>
+            
+            <tag> delegating constructors </tag>
             
         </tags>
         
@@ -265,9 +265,9 @@
         
         <tags>
             
-            <tag> C++11 </tag>
-            
             <tag> shared_ptr </tag>
+            
+            <tag> C++11 </tag>
             
         </tags>
         
