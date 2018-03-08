@@ -1001,7 +1001,7 @@ pre .javascript .function {
   opacity: 0;
 }
 .post-body {
-  font-family: 'Helvetica', "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: 'Arial', 'Helvetica', "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 @media (max-width: 767px) {
   .post-body {
@@ -1266,7 +1266,7 @@ pre .javascript .function {
 .posts-expand .post-meta {
   margin: 3px 0 20px 0;
   color: #999;
-  font-family: 'Helvetica', "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: 'Arial', 'Helvetica', "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 12px;
   text-align: center;
 }
@@ -1666,7 +1666,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #c706e8;
+  background: #a8ffff;
 }
 .links-of-blogroll {
   font-size: 13px;
